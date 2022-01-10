@@ -1,0 +1,5 @@
+python-vlc
+google-api-python-client
+youtube-dl
+pafy
+black
