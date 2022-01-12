@@ -1,10 +1,8 @@
-import collections
 import os
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 import pafy
 from googleapiclient.discovery import build
-from pyasn1.type.univ import Any
 
 import config.helper as config
 from config.track import Track

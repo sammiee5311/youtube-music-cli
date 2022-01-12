@@ -27,7 +27,7 @@ def main() -> None:
         elif command == "4":
             pass
         elif command == "5":
-            pass
+            init_command()
         elif command == "6":
             print("BYE")
             break
