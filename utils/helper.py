@@ -1,22 +1,25 @@
 import re
-from dataclasses import InitVar
 
 INIT_TEXT = """
 ##### YOUTUBE MUSIC CLI #####
 [1] - add music in playlist
 [2] - show playlist
-[3] - stop music
-[4] - resume music
-[5] - help
-[6] - exit
+[3] - pause music
+[4] - stop music
+[5] - resume music
+[6] - next music
+[7] - help
+[8] - exit
 #############################
 """
+
+MATCH_TEXT_SET = {"lyrics", "audio", "official explicit audio", "official audio"}
 
 
 def is_text_contained(title: str) -> bool:
     for text in title:
         text = re.sub("[-=+,#/\?:^$.@*\"※~&%ㆍ!』\\‘|\(\)\[\]\<\>`'…》]", "", text)
-        if text.lower() in {"lyrics", "audio", "official"}:
+        if text.lower() in MATCH_TEXT_SET:
             return True
 
     return False
