@@ -24,6 +24,14 @@ class Player:
     def create_new_player(self) -> None:
         self.instance = vlc.Instance("--verbose 0")
         self.media_player = self.instance.media_player_new()
+    
+    def show_playlist(self) -> None:
+        if not self.playlist.is_empty() and not self.current_track:
+            print("Playlist is Empty.")
+        else:
+            print(f"[C] {self.current_track.video_title}")
+            for i, track in enumerate(self.playlist.playlist):
+                print(f"[{i+1}] {track.video_title}")
 
     def play(self):
         try:

@@ -26,12 +26,7 @@ def main() -> None:
             player.add_music(music)
             player.play_music()
         elif command == "2":
-            if not player.playlist.is_empty() and not player.current_track:
-                print("Playlist is Empty.")
-            else:
-                print(f"[C] {player.current_track.video_title}")
-                for i, track in enumerate(player.playlist.playlist):
-                    print(f"[{i+1}] {track.video_title}")
+            player.show_playlist()
         elif command == "3":
             player.pause_music()
         elif command == "4":
