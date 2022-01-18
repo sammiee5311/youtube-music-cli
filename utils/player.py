@@ -5,7 +5,7 @@ from typing import Optional
 import vlc
 from youtube_music import YoutubeMusic
 
-from utils.playlist import Playlist
+from utils.playlist import Playlist, PlaylistIsEmpty
 from utils.track import Track
 
 
@@ -26,19 +26,22 @@ class Player:
         self.media_player = self.instance.media_player_new()
 
     def play(self):
-        track = self.playlist.play_next_track()
-        self.current_track = track
-        self.media_player = self.instance.media_player_new()
-        media = self.instance.media_new(track.audio_url)
-        media.get_mrl()
-        self.media_player.set_media(media)
-        self.media_player.play()
+        try:
+            track = self.playlist.play_next_track()
+            self.current_track = track
+            self.media_player = self.instance.media_player_new()
+            media = self.instance.media_new(track.audio_url)
+            media.get_mrl()
+            self.media_player.set_media(media)
+            self.media_player.play()
 
-        time.sleep(5)
-        event_manager = self.media_player.event_manager()
-        event_manager.event_attach(vlc.EventType.MediaPlayerEndReached, self.end_callback)
+            time.sleep(5)
+            event_manager = self.media_player.event_manager()
+            event_manager.event_attach(vlc.EventType.MediaPlayerEndReached, self.end_callback)
+        except PlaylistIsEmpty:
+            print("Playlist is done.")
 
-    def end_callback(self, event):
+    def end_callback(self, _):
         self.play()
 
     def add_music(self, name: str) -> None:
