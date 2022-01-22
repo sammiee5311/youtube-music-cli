@@ -5,6 +5,7 @@ from typing import Optional
 import vlc
 from youtube_music import YoutubeMusic
 
+from utils.helper import is_valid_track_number, remove_command
 from utils.playlist import Playlist, PlaylistIsEmpty
 from utils.track import Track
 
@@ -24,7 +25,7 @@ class Player:
     def create_new_player(self) -> None:
         self.instance = vlc.Instance("--verbose 0")
         self.media_player = self.instance.media_player_new()
-    
+
     def show_playlist(self) -> None:
         if not self.playlist.is_empty() and not self.current_track:
             print("Playlist is Empty.")
@@ -47,7 +48,7 @@ class Player:
             event_manager = self.media_player.event_manager()
             event_manager.event_attach(vlc.EventType.MediaPlayerEndReached, self.end_callback)
         except PlaylistIsEmpty:
-            print("Playlist is done.")
+            print("Playlist is empty.")
 
     def end_callback(self, _):
         self.play()
@@ -62,6 +63,22 @@ class Player:
     def stop_music(self) -> None:
         print("stopping music...")
         self.media_player.stop()
+
+    def remove_music(self) -> None:
+        if self.playlist.is_empty():
+            print("Playlist is empty.")
+            return
+
+        remove_command()
+        self.show_playlist()
+        print("#############################")
+        track_number = int(input("Enter track number: "))
+
+        if not is_valid_track_number(track_number, len(self.playlist.playlist)):
+            print("Please type valid track number.")
+            return
+
+        self.playlist.remove_track(track_number - 1)
 
     def next_music(self) -> None:
         if self.state is not vlc.State.NothingSpecial:

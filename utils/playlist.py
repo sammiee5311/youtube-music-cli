@@ -24,5 +24,8 @@ class Playlist:
 
         return self.current_track
 
+    def remove_track(self, track_number) -> None:
+        del self.playlist[track_number]
+
     def is_empty(self) -> bool:
         return len(self.playlist) == 0

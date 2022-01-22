@@ -32,12 +32,14 @@ def main() -> None:
         elif command == "4":
             player.stop_music()
         elif command == "5":
-            player.play_music()
+            player.remove_music()
         elif command == "6":
-            player.next_music()
+            player.play_music()
         elif command == "7":
-            init_command()
+            player.next_music()
         elif command == "8":
+            init_command()
+        elif command == "0":
             print("BYE")
             break
 
