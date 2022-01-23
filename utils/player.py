@@ -53,6 +53,10 @@ class Player:
 
     def add_music(self, name: str) -> None:
         track = self.youtube_music_search.search_and_get_track(name)
+        if track is None:
+            print("Please, type correct/specific music name.")
+            return
+
         self.playlist.add_track_in_playlist(track)
 
         if self.state in (vlc.State.NothingSpecial, vlc.State.Stopped):
