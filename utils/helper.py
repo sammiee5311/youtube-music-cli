@@ -16,7 +16,15 @@ INIT_TEXT = """
 
 REMOVE_MUSIC_TEXT = """
 ##### YOUTUBE MUSIC CLI #####
-###  Select Track Number  ###"""
+###  Select Track Number  ###
+%s
+#############################"""
+
+PLAYLIST_TEXT = """
+##### YOUTUBE MUSIC CLI #####
+######### Playlist ##########
+%s
+#############################"""
 
 MATCH_TEXT_SET = {"lyrics", "audio", "official explicit audio", "official audio"}
 
@@ -38,5 +46,9 @@ def init_command() -> None:
     print(INIT_TEXT)
 
 
-def remove_command() -> None:
-    print(REMOVE_MUSIC_TEXT)
+def remove_command(playlist) -> None:
+    print(REMOVE_MUSIC_TEXT % playlist)
+
+
+def print_playlist(playlist) -> None:
+    print(PLAYLIST_TEXT % playlist)

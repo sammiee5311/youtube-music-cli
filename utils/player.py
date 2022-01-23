@@ -5,7 +5,7 @@ from typing import Optional
 import vlc
 from youtube_music import YoutubeMusic
 
-from utils.helper import is_valid_track_number, remove_command
+from utils.helper import is_valid_track_number, print_playlist, remove_command
 from utils.playlist import Playlist, PlaylistIsEmpty
 from utils.track import Track
 
@@ -30,9 +30,7 @@ class Player:
         if not self.playlist.is_empty() and not self.current_track:
             print("Playlist is Empty.")
         else:
-            print(f"[C] {self.current_track.video_title}")
-            for i, track in enumerate(self.playlist.playlist):
-                print(f"[{i+1}] {track.video_title}")
+            print_playlist(self.playlist.get_tracks_in_string())
 
     def play(self):
         try:
@@ -69,9 +67,7 @@ class Player:
             print("Playlist is empty.")
             return
 
-        remove_command()
-        self.show_playlist()
-        print("#############################")
+        remove_command(self.playlist.get_tracks_in_string())
         track_number = int(input("Enter track number: "))
 
         if not is_valid_track_number(track_number, len(self.playlist.playlist)):
