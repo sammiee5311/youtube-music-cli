@@ -3,6 +3,7 @@ from collections import deque
 import click
 
 from utils.helper import init_command
+from utils.logger import logger
 from utils.player import Player
 from utils.playlist import Playlist
 from youtube_music import YoutubeMusic
@@ -15,6 +16,7 @@ def main() -> None:
     playlist = Playlist(playlist=deque())
     player = Player(playlist=playlist, youtube_music_search=youtube_music)
 
+    logger.info("Creating vlc player.")
     player.create_new_player()
 
     init_command()
@@ -40,7 +42,7 @@ def main() -> None:
         elif command == "8":
             init_command()
         elif command == "0":
-            print("BYE")
+            logger.info("Disconnect to music player.")
             break
 
 

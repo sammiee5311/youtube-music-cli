@@ -90,6 +90,6 @@ class Player:
         self.media_player.pause()
 
     def play_music(self) -> None:
-        if self.state is vlc.State.Paused:
+        if self.state == vlc.State.Paused:
             print("playing/resuming music...")
             self.media_player.play()

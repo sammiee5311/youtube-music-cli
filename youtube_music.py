@@ -6,6 +6,7 @@ from googleapiclient.discovery import build
 
 import config.helper as config
 from utils.helper import is_text_contained
+from utils.logger import logger
 from utils.track import Track
 
 config.load_env()
@@ -28,6 +29,7 @@ class YoutubeMusic:
         self.youtube_client = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
 
     def get_audio_url_from_youtube_video(self, video_url: str) -> str:
+        logger.info("Getting audio url form youtube video.")
         video = pafy.new(video_url)
         best_audio = video.getbestaudio()
         audio_streaming_link: str = best_audio.url
