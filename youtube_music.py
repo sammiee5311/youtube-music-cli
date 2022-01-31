@@ -1,19 +1,12 @@
-import os
 from typing import Dict, List, Optional
 
 import pafy
 from googleapiclient.discovery import build
 
-import config.helper as config
 from utils.helper import is_text_contained
 from utils.logger import logger
 from utils.track import Track
 
-config.load_env()
-
-DEVELOPER_KEY = os.environ["DEVELOPER_KEY"]
-YOUTUBE_API_SERVICE_NAME = os.environ["YOUTUBE_API_SERVICE_NAME"]
-YOUTUBE_API_VERSION = os.environ["YOUTUBE_API_VERSION"]
 YOUTUBE_URL = "https://www.youtube.com/watch?v=%s"
 
 
@@ -23,10 +16,10 @@ class TrackDoesNotFound(Exception):
 
 
 class YoutubeMusic:
-    def __init__(self):
+    def __init__(self, service_name: str, api_version: str, developer_key: str):
         self.current_track: Optional[Track] = None
         self.playlist: List[Track] = []
-        self.youtube_client = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
+        self.youtube_client = build(service_name, api_version, developerKey=developer_key)
 
     def get_audio_url_from_youtube_video(self, video_url: str) -> str:
         logger.info("Getting audio url form youtube video.")
@@ -58,5 +51,5 @@ class YoutubeMusic:
             if search_result["id"]["kind"] == "youtube#video":
                 try:
                     return self.handle_search_result(search_result)
-                except TrackDoesNotFound as error:
+                except TrackDoesNotFound as error:  # TODO: need to implement
                     continue

@@ -1,5 +1,7 @@
 # youtube-music-cli
 
+[![Coverage Status](./reports/coverage-badge.svg?dummy=8484743)](./reports/index.html)
+
 ## setup
 
 - get **youtube data API** by following on [getting start](https://developers.google.com/youtube/v3/getting-started)

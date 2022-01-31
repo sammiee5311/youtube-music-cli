@@ -3,3 +3,7 @@ google-api-python-client
 youtube-dl
 pafy
 black
+pytest
+pytest-cov
+tox
+python-dotenv
