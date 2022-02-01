@@ -30,10 +30,10 @@ def test_search_query_ail():
         youtube_music.youtube_client.search().list(q="test", part="id, snippet").execute()
 
 
-def test_add_track_in_playlist():
-    youtube_music = YoutubeMusic(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, DEVELOPER_KEY)
+# def test_add_track_in_playlist():
+#     youtube_music = YoutubeMusic(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, DEVELOPER_KEY)
 
-    playlist = Playlist(playlist=deque())
-    player = Player(playlist=playlist, youtube_music_search=youtube_music)
-    player.create_new_player()
-    player.add_music("drake")
+#     playlist = Playlist(playlist=deque())
+#     player = Player(playlist=playlist, youtube_music_search=youtube_music)
+#     player.create_new_player()
+#     player.add_music("drake")
