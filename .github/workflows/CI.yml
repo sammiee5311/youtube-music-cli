@@ -1,0 +1,26 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test-youtube-music-cli:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v2
+
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install python dependencies
+        uses: actions/cache@v2
+        run: pip install -r requirements.txt
+
+      - name: Test youtube music cli
+        env:
+          DEVELOPER_KEY: ${{ secrets.DEVELOPER_KEY }}
+          YOUTUBE_API_SERVICE_NAME: ${{ secrets.YOUTUBE_API_SERVICE_NAME }}
+          YOUTUBE_API_VERSION: ${{ secrets.YOUTUBE_API_VERSION }}
+        run: python -m pytest
