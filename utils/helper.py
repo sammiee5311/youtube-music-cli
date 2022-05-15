@@ -1,5 +1,7 @@
 import re
 
+from utils.logger import logger
+
 INIT_TEXT = """
 ##### YOUTUBE MUSIC CLI #####
 [1] - add music in playlist
@@ -27,6 +29,32 @@ PLAYLIST_TEXT = """
 #############################"""
 
 MATCH_TEXT_SET = {"lyrics", "audio", "official explicit audio", "official audio"}
+
+
+def start_player(player) -> None:
+    while True:
+        command = input("Enter command: ")
+        if command == "1":
+            music = input("Enter music name: ")
+            player.add_music(music)
+            player.play_music()
+        elif command == "2":
+            player.show_playlist()
+        elif command == "3":
+            player.pause_music()
+        elif command == "4":
+            player.stop_music()
+        elif command == "5":
+            player.remove_music()
+        elif command == "6":
+            player.play_music()
+        elif command == "7":
+            player.next_music()
+        elif command == "8":
+            init_command()
+        elif command == "0":
+            logger.info("Disconnect to music player.")
+            break
 
 
 def is_text_contained(title: str) -> bool:

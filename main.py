@@ -4,7 +4,7 @@ from collections import deque
 import click
 
 import config.helper as config
-from utils.helper import init_command
+from utils.helper import init_command, start_player
 from utils.logger import logger
 from utils.player import Player
 from utils.playlist import Playlist
@@ -28,30 +28,7 @@ def main() -> None:
     player.create_new_player()
 
     init_command()
-
-    while True:
-        command = input("Enter command: ")
-        if command == "1":
-            music = input("Enter music name: ")
-            player.add_music(music)
-            player.play_music()
-        elif command == "2":
-            player.show_playlist()
-        elif command == "3":
-            player.pause_music()
-        elif command == "4":
-            player.stop_music()
-        elif command == "5":
-            player.remove_music()
-        elif command == "6":
-            player.play_music()
-        elif command == "7":
-            player.next_music()
-        elif command == "8":
-            init_command()
-        elif command == "0":
-            logger.info("Disconnect to music player.")
-            break
+    start_player(player)
 
 
 if __name__ == "__main__":
