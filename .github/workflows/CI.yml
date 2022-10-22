@@ -15,7 +15,7 @@ jobs:
           python-version: 3.9
 
       - name: Install python dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements_dev.txt
 
       - name: Test youtube music cli
         env:
@@ -23,3 +23,10 @@ jobs:
           YOUTUBE_API_SERVICE_NAME: ${{ secrets.YOUTUBE_API_SERVICE_NAME }}
           YOUTUBE_API_VERSION: ${{ secrets.YOUTUBE_API_VERSION }}
         run: python -m pytest
+
+      - name: Mypy youtube music cli
+        env:
+          DEVELOPER_KEY: ${{ secrets.DEVELOPER_KEY }}
+          YOUTUBE_API_SERVICE_NAME: ${{ secrets.YOUTUBE_API_SERVICE_NAME }}
+          YOUTUBE_API_VERSION: ${{ secrets.YOUTUBE_API_VERSION }}
+        run: mypy .
