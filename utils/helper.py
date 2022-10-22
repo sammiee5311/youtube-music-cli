@@ -1,6 +1,12 @@
+from __future__ import annotations
+
 import re
+from typing import TYPE_CHECKING
 
 from utils.logger import logger
+
+if TYPE_CHECKING:
+    from utils.player import Player
 
 INIT_TEXT = """
 ##### YOUTUBE MUSIC CLI #####
@@ -31,7 +37,7 @@ PLAYLIST_TEXT = """
 MATCH_TEXT_SET = {"lyrics", "audio", "official explicit audio", "official audio"}
 
 
-def start_player(player) -> None:
+def start_player(player: Player) -> None:
     while True:
         command = input("Enter command: ")
         if command == "1":

@@ -29,7 +29,7 @@ class YoutubeMusic:
 
         return audio_streaming_link
 
-    def handle_search_result(self, search_result: Dict[str, Dict[str, str]]) -> None:
+    def handle_search_result(self, search_result: Dict[str, Dict[str, str]]) -> Track:
         video_id = search_result["id"]["videoId"]
         video_title = search_result["snippet"]["title"]
 
@@ -44,7 +44,7 @@ class YoutubeMusic:
 
         raise TrackDoesNotFound
 
-    def search_and_get_track(self, query: str) -> None:
+    def search_and_get_track(self, query: str) -> Track:
         search_response = self.youtube_client.search().list(q=query, part="id, snippet").execute()
 
         for search_result in search_response.get("items", []):

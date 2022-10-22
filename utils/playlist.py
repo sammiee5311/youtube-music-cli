@@ -18,6 +18,9 @@ class Playlist:
         self.playlist.append(track)
 
     def get_tracks_in_string(self) -> str:
+        if not self.current_track:
+            print("No current track.")
+            return ""
         tracks_string = f"[C] {self.current_track.video_title}\n"
         for i, track in enumerate(self.playlist):
             tracks_string += f"[{i+1}] {track.video_title}\n"

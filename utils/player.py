@@ -1,6 +1,6 @@
 import time
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Union
 
 import vlc
 from youtube_music import YoutubeMusic
@@ -19,7 +19,9 @@ class Player:
     current_track: Optional[Track] = None
 
     @property
-    def state(self) -> vlc.State:
+    def state(self) -> Union[vlc.State, None]:
+        if not self.media_player:
+            return None
         return self.media_player.get_state()
 
     def create_new_player(self) -> None:
@@ -63,6 +65,10 @@ class Player:
             self.play()
 
     def stop_music(self) -> None:
+        if not self.media_player:
+            print("No media player found.")
+            return
+
         print("stopping music...")
         self.media_player.stop()
 
@@ -77,14 +83,12 @@ class Player:
         if not track_number.isdigit():
             print("Track number is not number.")
             return
-        
-        track_number = int(track_number)
 
-        if not is_valid_track_number(track_number, len(self.playlist.playlist)):
+        if not is_valid_track_number(int(track_number), len(self.playlist.playlist)):
             print("Please type valid track number.")
             return
 
-        self.playlist.remove_track(track_number - 1)
+        self.playlist.remove_track(int(track_number) - 1)
 
     def next_music(self) -> None:
         if self.state is not vlc.State.NothingSpecial:
@@ -92,10 +96,18 @@ class Player:
         self.play()
 
     def pause_music(self) -> None:
+        if not self.media_player:
+            print("No media player found.")
+            return
+
         print("pausing music...")
         self.media_player.pause()
 
     def play_music(self) -> None:
+        if not self.media_player:
+            print("No media player found.")
+            return
+
         if self.state == vlc.State.Paused:
             print("playing/resuming music...")
             self.media_player.play()
