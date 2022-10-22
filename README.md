@@ -10,5 +10,5 @@
     DEVELOPER_KEY=AAAAAAAAAA # example
     ```
 - install [vlc player](https://www.videolan.org/)
-- `pip install -r requirements.txt`
+- `pip install -e .`
 - `python main.py`

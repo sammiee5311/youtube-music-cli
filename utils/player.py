@@ -72,7 +72,13 @@ class Player:
             return
 
         remove_command(self.playlist.get_tracks_in_string())
-        track_number = int(input("Enter track number: "))
+        track_number = input("Enter track number: ")
+
+        if not track_number.isdigit():
+            print("Track number is not number.")
+            return
+        
+        track_number = int(track_number)
 
         if not is_valid_track_number(track_number, len(self.playlist.playlist)):
             print("Please type valid track number.")

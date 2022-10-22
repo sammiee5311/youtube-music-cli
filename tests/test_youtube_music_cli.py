@@ -1,9 +1,8 @@
 import os
 from collections import deque
 
-import config.helper as config
+import config.env as config
 import pytest
-import vlc
 from googleapiclient.errors import HttpError
 from utils.player import Player
 from utils.playlist import Playlist

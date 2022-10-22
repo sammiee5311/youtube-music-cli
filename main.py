@@ -3,7 +3,7 @@ from collections import deque
 
 import click
 
-import config.helper as config
+import config.env as config
 from utils.helper import init_command, start_player
 from utils.logger import logger
 from utils.player import Player
