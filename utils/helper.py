@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import re
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Callable
 
 from utils.logger import logger
 
@@ -36,31 +36,72 @@ PLAYLIST_TEXT = """
 
 MATCH_TEXT_SET = {"lyrics", "audio", "official explicit audio", "official audio"}
 
+is_player_stop = False
+
+
+def add_music_in_playlist(player: Player) -> None:
+    music = input("Enter music name: ")
+    player.add_music(music)
+    player.play_music()
+
+
+def show_playlist(player: Player) -> None:
+    player.show_playlist()
+
+
+def pause_music(player: Player) -> None:
+    player.pause_music()
+
+
+def stop_music(player: Player) -> None:
+    player.stop_music()
+
+
+def remove_music(player: Player) -> None:
+    player.remove_music()
+
+
+def resume_music(player: Player) -> None:
+    player.play_music()
+
+
+def next_music(player: Player) -> None:
+    player.next_music()
+
+
+def help(player: Player) -> None:
+    init_command()
+
+
+def exit(player: Player) -> None:
+    global is_player_stop
+    logger.info("Disconnect to music player.")
+    is_player_stop = True
+
+
+player_commands = {
+    "1": add_music_in_playlist,
+    "2": show_playlist,
+    "3": pause_music,
+    "4": stop_music,
+    "5": remove_music,
+    "6": resume_music,
+    "7": next_music,
+    "8": help,
+    "0": exit,
+}
+
 
 def start_player(player: Player) -> None:
-    while True:
+    while not is_player_stop:
         command = input("Enter command: ")
-        if command == "1":
-            music = input("Enter music name: ")
-            player.add_music(music)
-            player.play_music()
-        elif command == "2":
-            player.show_playlist()
-        elif command == "3":
-            player.pause_music()
-        elif command == "4":
-            player.stop_music()
-        elif command == "5":
-            player.remove_music()
-        elif command == "6":
-            player.play_music()
-        elif command == "7":
-            player.next_music()
-        elif command == "8":
-            init_command()
-        elif command == "0":
-            logger.info("Disconnect to music player.")
-            break
+        player_command: Callable[[Player], None] | None = player_commands.get(command)
+
+        if not player_command:
+            print("Please, select exisit command.")
+            continue
+
+        player_command(player)
 
 
 def is_text_contained(title: str) -> bool:
