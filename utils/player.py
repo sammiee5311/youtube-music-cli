@@ -1,6 +1,7 @@
+from __future__ import annotations
+
 import time
 from dataclasses import dataclass
-from typing import Optional, Union
 
 import vlc
 from youtube_music import YoutubeMusic
@@ -14,12 +15,12 @@ from utils.track import Track
 class Player:
     playlist: Playlist
     youtube_music_search: YoutubeMusic
-    media_player: Optional[vlc.MediaPlayer] = None
-    instance: Optional[vlc.Instance] = None
-    current_track: Optional[Track] = None
+    media_player: vlc.MediaPlayer | None = None
+    instance: vlc.Instance | None = None
+    current_track: Track | None = None
 
     @property
-    def state(self) -> Union[vlc.State, None]:
+    def state(self) -> vlc.State | None:
         if not self.media_player:
             return None
         return self.media_player.get_state()

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from dataclasses import dataclass, field
-from typing import Deque, Optional
+from typing import Deque
 
 from utils.track import Track
 
@@ -11,7 +13,7 @@ class PlaylistIsEmpty(Exception):
 
 @dataclass
 class Playlist:
-    current_track: Optional[Track] = None
+    current_track: Track | None = None
     playlist: Deque[Track] = field(default_factory=Deque)
 
     def add_track_in_playlist(self, track: Track) -> None:

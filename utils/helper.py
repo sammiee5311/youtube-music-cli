@@ -72,7 +72,7 @@ def is_text_contained(title: str) -> bool:
     return False
 
 
-def is_valid_track_number(track_number: int, maximum_track_number) -> bool:
+def is_valid_track_number(track_number: int, maximum_track_number: int) -> bool:
     return 0 < track_number <= maximum_track_number
 
 

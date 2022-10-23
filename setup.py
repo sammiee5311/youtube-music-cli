@@ -14,6 +14,7 @@ dev_requires = [
     "pytest",
     "pytest-cov",
     "tox",
+    "mypy",
 ]
 
 if __name__ == "__main__":

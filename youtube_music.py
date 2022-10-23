@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from __future__ import annotations
 
 import pafy
 from googleapiclient.discovery import build
@@ -17,8 +17,8 @@ class TrackDoesNotFound(Exception):
 
 class YoutubeMusic:
     def __init__(self, service_name: str, api_version: str, developer_key: str):
-        self.current_track: Optional[Track] = None
-        self.playlist: List[Track] = []
+        self.current_track: Track | None = None
+        self.playlist: list[Track] = []
         self.youtube_client = build(service_name, api_version, developerKey=developer_key)
 
     def get_audio_url_from_youtube_video(self, video_url: str) -> str:
@@ -29,7 +29,7 @@ class YoutubeMusic:
 
         return audio_streaming_link
 
-    def handle_search_result(self, search_result: Dict[str, Dict[str, str]]) -> Track:
+    def handle_search_result(self, search_result: dict[str, dict[str, str]]) -> Track:
         video_id = search_result["id"]["videoId"]
         video_title = search_result["snippet"]["title"]
 
