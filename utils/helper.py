@@ -7,6 +7,7 @@ from utils.logger import logger
 
 if TYPE_CHECKING:
     from utils.player import Player
+    from utils.playlist import Playlist
 
 INIT_TEXT = """
 ##### YOUTUBE MUSIC CLI #####
@@ -106,7 +107,7 @@ def start_player(player: Player) -> None:
 
 def is_text_contained(title: str) -> bool:
     for text in title:
-        text = re.sub("[-=+,#/\?:^$.@*\"※~&%ㆍ!』\\‘|\(\)\[\]\<\>`'…》]", "", text)
+        text = re.sub("[-=+,#/?:^$.@*\"※~&%ㆍ!』\\‘|\(\)\[\]\<\>`'…》]", "", text)
         if text.lower() in MATCH_TEXT_SET:
             return True
 
@@ -121,9 +122,9 @@ def init_command() -> None:
     print(INIT_TEXT)
 
 
-def remove_command(playlist) -> None:
+def remove_command(playlist: Playlist) -> None:
     print(REMOVE_MUSIC_TEXT % playlist)
 
 
-def print_playlist(playlist) -> None:
+def print_playlist(playlist: Playlist) -> None:
     print(PLAYLIST_TEXT % playlist)

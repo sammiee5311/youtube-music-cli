@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import time
 from dataclasses import dataclass
+from typing import Any
 
 import vlc
-from youtube_music import YoutubeMusic
 
 from utils.helper import is_valid_track_number, print_playlist, remove_command
 from utils.playlist import Playlist, PlaylistIsEmpty
 from utils.track import Track
+from youtube_music import YoutubeMusic
 
 
 @dataclass
@@ -35,23 +36,27 @@ class Player:
         else:
             print_playlist(self.playlist.get_tracks_in_string())
 
-    def play(self):
+    def play(self) -> None:
         try:
+            if not self.instance:
+                print("Vlc instance is not created.")
+                return
+
             track = self.playlist.play_next_track()
             self.current_track = track
-            self.media_player = self.instance.media_player_new()
-            media = self.instance.media_new(track.audio_url)
+            self.media_player: vlc.MediaPlayer = self.instance.media_player_new()
+            media: vlc.Media = self.instance.media_new(track.audio_url)
             media.get_mrl()
             self.media_player.set_media(media)
             self.media_player.play()
 
             time.sleep(5)
-            event_manager = self.media_player.event_manager()
+            event_manager: vlc.EventManager = self.media_player.event_manager()
             event_manager.event_attach(vlc.EventType.MediaPlayerEndReached, self.end_callback)
         except PlaylistIsEmpty:
             print("Playlist is empty.")
 
-    def end_callback(self, _):
+    def end_callback(self, _: Any) -> None:
         self.play()
 
     def add_music(self, name: str) -> None:

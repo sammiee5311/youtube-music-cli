@@ -7,7 +7,7 @@ from utils.track import Track
 
 
 class PlaylistIsEmpty(Exception):
-    def __init__(self, message="Playlist is Empty"):
+    def __init__(self, message: str = "Playlist is Empty"):
         super().__init__(message)
 
 
@@ -36,7 +36,7 @@ class Playlist:
 
         return self.current_track
 
-    def remove_track(self, track_number) -> None:
+    def remove_track(self, track_number: int) -> None:
         track = self.playlist[track_number]
         del self.playlist[track_number]
         print(f"{track.video_title} is removed.")
